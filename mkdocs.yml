@@ -12,8 +12,8 @@ plugins:
   - mkdocs-jupyter
 
 nav:
-  - PlagDetect: index.md
-  - About PlagDetect:
+  - MinDet: index.md
+  - About MinDet:
     - Background: background.md
     - Training: Training.md
     - Inference: Inference.md
