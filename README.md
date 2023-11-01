@@ -50,7 +50,7 @@ Install required libraries (non-cluster):
 
 	mim install "mmdet<3.0.0"
 
-#### Install PlagDetect
+#### Install MinDet
 Install using the following command: 
 
 	pip install git+https://git@github.com/norberttoth398/MinDet
@@ -59,4 +59,4 @@ Install using the following command:
 #### Cite
 Publication for the above repository is formally in the preparation stage. This work is presented at the EGU 2023 conference however, until formal publication of a manuscript please cite:
 
-	norberttoth398. (2023). norberttoth398/PlagDetect: First release - for peer review (v0.1.0). Zenodo. https://doi.org/10.5281/zenodo.7851939 
+	norberttoth398. (2023). norberttoth398/MinDet:
