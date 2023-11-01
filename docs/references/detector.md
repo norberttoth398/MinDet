@@ -1,0 +1,4 @@
+# Detector
+
+::: PlagDetect.detector
+

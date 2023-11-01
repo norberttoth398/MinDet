@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Tiling - PlagDetect</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Tiling";
+        var mkdocs_page_input_path = "references\\tiling.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> PlagDetect
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">PlagDetect</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">About PlagDetect</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../cite/">How to cite</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../contribute/">How to contribute</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../background/">Background</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Training/">Training</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Inference/">Inference</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../textural_work/">Textural Work</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Examples</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../examples/Skuggafjoll_analysis/">Large textural dataset analysis - Skuggafjoll</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../examples/Sill_calibration/">Crystallisation time and Plagioclase shape calibration in sills</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">References</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../detector/">Detector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../NMS/">NMS</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Tiling</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#PlagDetect.tiling">PlagDetect.tiling</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#PlagDetect.tiling.create_label_image">create_label_image()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#PlagDetect.tiling.left_overlap">left_overlap()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#PlagDetect.tiling.load_imgs">load_imgs()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#PlagDetect.tiling.post_tile_score_update">post_tile_score_update()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#PlagDetect.tiling.replace_vals">replace_vals()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#PlagDetect.tiling.row_score_update">row_score_update()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#PlagDetect.tiling.score_update">score_update()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#PlagDetect.tiling.tile_run">tile_run()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#PlagDetect.tiling.top_overlap">top_overlap()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#PlagDetect.tiling.top_overlap_row">top_overlap_row()</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../slicing/">Slicing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../thresholding/">Thresholding</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../run/">Run</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Process</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../measure/">Measure</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../texture/">Texture</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../shape_calc/">ShapeCalc</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../mcmc/">MCMC Prediction</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../licence/">Licence</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">PlagDetect</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>References &raquo;</li>
+      <li>Tiling</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="tiling">Tiling</h1>
+
+
+<div class="doc doc-object doc-module">
+
+
+<a id="PlagDetect.tiling"></a>
+  <div class="doc doc-contents first">
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="PlagDetect.tiling.create_label_image" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">create_label_image</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">img_side</span><span class="p">,</span> <span class="n">score_thresh</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Creates label image from list of results</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>result</code></td>
+          <td>
+                <code>list/ndarray</code>
+          </td>
+          <td><p>direct result of inference by model</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>img_side</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td><p>size of square image.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>score_thresh</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td><p>Threshold for filtering low scores; between 0 and 1. Defaults to 0.</p></td>
+          <td>
+                <code>0</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>label_img</code></td>          <td>
+          </td>
+          <td><p>image showing position of segmented crystals</p></td>
+        </tr>
+        <tr>
+<td><code>used_scores</code></td>          <td>
+          </td>
+          <td><p>list of scores used in label_img</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>PlagDetect\tiling.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">create_label_image</span><span class="p">(</span><span class="n">result</span><span class="p">,</span><span class="n">img_side</span><span class="p">,</span> <span class="n">score_thresh</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Creates label image from list of results</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        result (list/ndarray): direct result of inference by model</span>
+<span class="sd">        img_side (int): size of square image.</span>
+<span class="sd">        score_thresh (int, optional): Threshold for filtering low scores; between 0 and 1. Defaults to 0.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        label_img: image showing position of segmented crystals</span>
+<span class="sd">        used_scores: list of scores used in label_img</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#create label image from result list (pre or post NMS)</span>
+    <span class="n">label_img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">img_side</span><span class="p">,</span><span class="n">img_side</span><span class="p">))</span>
+    <span class="n">used_scores</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])):</span>
+        <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">score_thresh</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pred_mask</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">label_img_mask</span> <span class="o">=</span> <span class="n">label_img</span> <span class="o">&gt;</span> <span class="mi">0</span>
+            <span class="c1">#label_img_mask = label_img_mask.astype(&quot;int&quot;)</span>
+
+            <span class="n">new_lblImg</span> <span class="o">=</span> <span class="n">label_img_mask</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;int&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">pred_mask</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;int&quot;</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span>
+            <span class="n">label_img</span><span class="p">[</span><span class="n">new_lblImg</span> <span class="o">==</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+            <span class="c1">#scores[i] is for label_number = i+1 annoyingly as 0 is unclassified</span>
+            <span class="n">used_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">label_img</span><span class="p">,</span> <span class="n">used_scores</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="PlagDetect.tiling.left_overlap" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">left_overlap</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">corner_y</span><span class="p">,</span> <span class="n">corner_x</span><span class="p">,</span> <span class="n">over_n</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">img_side</span><span class="o">=</span><span class="mi">2000</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Wrapper for stitching function when building row of tile images.</p>
+
+      <details class="quote">
+        <summary>Source code in <code>PlagDetect\tiling.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">left_overlap</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">corner_y</span><span class="p">,</span> <span class="n">corner_x</span><span class="p">,</span> <span class="n">over_n</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">img_side</span> <span class="o">=</span> <span class="mi">2000</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Wrapper for stitching function when building row of tile images.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">o1</span> <span class="o">=</span> <span class="n">i1</span><span class="p">[</span><span class="n">corner_y</span><span class="p">:</span><span class="n">corner_y</span><span class="o">+</span><span class="n">img_side</span><span class="p">,</span> <span class="n">corner_x</span><span class="p">:</span><span class="n">corner_x</span><span class="o">+</span><span class="n">over_n</span><span class="p">]</span> <span class="c1">#tile image</span>
+    <span class="n">o2</span> <span class="o">=</span> <span class="n">i2</span><span class="p">[:,:</span><span class="n">over_n</span><span class="p">]</span>
+
+    <span class="n">mask1</span> <span class="o">=</span> <span class="n">o1</span> <span class="o">!=</span> <span class="mi">0</span>
+    <span class="n">mask2</span> <span class="o">=</span> <span class="n">o2</span> <span class="o">!=</span> <span class="mi">0</span>
+    <span class="n">overlapped</span> <span class="o">=</span> <span class="n">mask1</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;int&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">mask2</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;int&quot;</span><span class="p">)</span>
+
+    <span class="n">i1</span><span class="p">,</span> <span class="n">i2</span> <span class="o">=</span> <span class="n">replace_vals</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span><span class="n">i2</span><span class="p">,</span><span class="n">overlapped</span><span class="p">,</span> <span class="n">corner_x</span><span class="p">,</span> <span class="n">corner_y</span><span class="p">)</span>
+
+    <span class="n">overlapped</span><span class="p">[</span><span class="n">overlapped</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">i1</span><span class="p">[</span><span class="n">corner_y</span><span class="p">:</span><span class="n">corner_y</span> <span class="o">+</span> <span class="n">img_side</span><span class="p">,</span> <span class="n">corner_x</span><span class="p">:</span><span class="n">corner_x</span><span class="o">+</span><span class="n">img_side</span><span class="p">]</span> <span class="o">+=</span> <span class="n">i2</span>
+    <span class="n">i1</span><span class="p">[</span><span class="n">corner_y</span><span class="p">:</span><span class="n">corner_y</span> <span class="o">+</span> <span class="n">img_side</span><span class="p">,</span> <span class="n">corner_x</span><span class="p">:</span><span class="n">corner_x</span><span class="o">+</span><span class="n">over_n</span><span class="p">]</span> <span class="o">=</span> <span class="n">i1</span><span class="p">[</span><span class="n">corner_y</span><span class="p">:</span><span class="n">corner_y</span> <span class="o">+</span> <span class="n">img_side</span><span class="p">,</span> <span class="n">corner_x</span><span class="p">:</span><span class="n">corner_x</span><span class="o">+</span><span class="n">over_n</span><span class="p">]</span><span class="o">/</span><span class="n">overlapped</span>
+
+    <span class="k">return</span> <span class="n">i1</span><span class="p">,</span> <span class="n">i2</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="PlagDetect.tiling.load_imgs" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">load_imgs</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">img_side</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">score_thresh</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>define relations between each tile for loading and post-processing</p>
+
+      <details class="quote">
+        <summary>Source code in <code>PlagDetect\tiling.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">load_imgs</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">img_side</span> <span class="p">,</span><span class="n">grid</span> <span class="o">=</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="n">score_thresh</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;define relations between each tile for loading and post-processing</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+
+    <span class="n">n_tiles</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">grid</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">tile_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">score_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_tiles</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="s2">&quot;/full_image_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="n">grid</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="o">%</span><span class="n">grid</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span> <span class="o">+</span> <span class="s2">&quot;.jpg.npz&quot;</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;bb&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mask&quot;</span><span class="p">]]</span>
+        <span class="n">lImage</span><span class="p">,</span> <span class="n">scores</span> <span class="o">=</span> <span class="n">create_label_image</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">img_side</span><span class="p">,</span> <span class="n">score_thresh</span><span class="p">)</span>
+        <span class="n">tile_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lImage</span><span class="p">)</span>
+        <span class="n">score_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">tile_list</span><span class="p">,</span> <span class="n">score_list</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="PlagDetect.tiling.post_tile_score_update" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">post_tile_score_update</span><span class="p">(</span><span class="n">old_img</span><span class="p">,</span> <span class="n">new_img</span><span class="p">,</span> <span class="n">dictionary</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Update score dictionary post-tiling.</p>
+
+      <details class="quote">
+        <summary>Source code in <code>PlagDetect\tiling.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">post_tile_score_update</span><span class="p">(</span><span class="n">old_img</span><span class="p">,</span> <span class="n">new_img</span><span class="p">,</span> <span class="n">dictionary</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Update score dictionary post-tiling.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">label_change</span> <span class="o">=</span> <span class="n">old_img</span> <span class="o">-</span> <span class="n">new_img</span>
+    <span class="n">changed_mask</span> <span class="o">=</span> <span class="n">label_change</span> <span class="o">!=</span> <span class="mi">0</span>
+    <span class="n">old_labels</span> <span class="o">=</span> <span class="n">old_img</span><span class="p">[</span><span class="n">changed_mask</span><span class="p">]</span>
+    <span class="n">new_labels</span> <span class="o">=</span> <span class="n">old_img</span><span class="p">[</span><span class="n">changed_mask</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">new_labels</span><span class="p">):</span>
+        <span class="n">l_mask</span> <span class="o">=</span> <span class="n">new_labels</span> <span class="o">==</span> <span class="n">l</span>
+        <span class="n">replaced</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">old_labels</span><span class="p">[</span><span class="n">l_mask</span><span class="p">])</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dictionary</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">replaced</span><span class="p">:</span>
+            <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dictionary</span><span class="p">[</span><span class="n">val</span><span class="p">])</span>
+        <span class="n">max_index</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">max_index</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">dictionary</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+    <span class="k">return</span> <span class="n">dictionary</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="PlagDetect.tiling.replace_vals" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">replace_vals</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">,</span> <span class="n">overlapped</span><span class="p">,</span> <span class="n">corner_x</span><span class="p">,</span> <span class="n">corner_y</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Performs the stitching procedure where images are overlapping.</p>
+
+      <details class="quote">
+        <summary>Source code in <code>PlagDetect\tiling.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">replace_vals</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="n">img2</span><span class="p">,</span> <span class="n">overlapped</span><span class="p">,</span> <span class="n">corner_x</span><span class="p">,</span> <span class="n">corner_y</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Performs the stitching procedure where images are overlapping.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">overlapped</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">used_vals</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">coords</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+        <span class="n">coord</span> <span class="o">=</span> <span class="p">[</span><span class="n">coords</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> <span class="n">coords</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]]</span>
+
+        <span class="k">if</span> <span class="n">img1</span><span class="p">[</span><span class="n">corner_y</span> <span class="o">+</span> <span class="n">coord</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">coord</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">corner_x</span><span class="p">]</span> <span class="o">==</span> <span class="n">img2</span><span class="p">[</span><span class="n">coord</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">coord</span><span class="p">[</span><span class="mi">1</span><span class="p">]]:</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">img1</span><span class="p">[</span><span class="n">corner_y</span> <span class="o">+</span> <span class="n">coord</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">coord</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">corner_x</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">img2</span><span class="p">[</span><span class="n">coord</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">coord</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="ow">in</span> <span class="n">used_vals</span><span class="p">:</span>
+                <span class="n">new_val</span> <span class="o">=</span> <span class="n">img2</span><span class="p">[</span><span class="n">coord</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">coord</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+                <span class="n">old_val</span> <span class="o">=</span> <span class="n">img1</span><span class="p">[</span><span class="n">coord</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">corner_y</span><span class="p">,</span> <span class="n">coord</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">corner_x</span><span class="p">]</span>
+                <span class="n">img1</span><span class="p">[</span><span class="n">img1</span> <span class="o">==</span> <span class="n">img1</span><span class="p">[</span><span class="n">coord</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">corner_y</span><span class="p">,</span> <span class="n">coord</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">corner_x</span><span class="p">]]</span> <span class="o">=</span> <span class="n">new_val</span>
+                <span class="n">img2</span><span class="p">[</span><span class="n">img2</span> <span class="o">==</span> <span class="n">old_val</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_val</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">new_val</span> <span class="o">=</span> <span class="n">img1</span><span class="p">[</span><span class="n">coord</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">corner_y</span><span class="p">,</span> <span class="n">coord</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">corner_x</span><span class="p">]</span>
+                <span class="n">img2</span><span class="p">[</span><span class="n">img2</span> <span class="o">==</span> <span class="n">img2</span><span class="p">[</span><span class="n">coord</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">coord</span><span class="p">[</span><span class="mi">1</span><span class="p">]]]</span> <span class="o">=</span> <span class="n">new_val</span>
+
+        <span class="n">used_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_val</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">img1</span><span class="p">,</span> <span class="n">img2</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="PlagDetect.tiling.row_score_update" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">row_score_update</span><span class="p">(</span><span class="n">row_dict</span><span class="p">,</span> <span class="n">overall_dict</span><span class="p">,</span> <span class="n">row_filler</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Update score dictionary for overall scores based on the separate row_dictionary produced
+using the left_overlap phase.</p>
+
+      <details class="quote">
+        <summary>Source code in <code>PlagDetect\tiling.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">row_score_update</span><span class="p">(</span><span class="n">row_dict</span><span class="p">,</span><span class="n">overall_dict</span><span class="p">,</span> <span class="n">row_filler</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Update score dictionary for overall scores based on the separate row_dictionary produced</span>
+<span class="sd">    using the left_overlap phase.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">keys</span> <span class="o">=</span> <span class="n">row_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+        <span class="n">overall_dict</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="n">row_filler</span><span class="p">]</span> <span class="o">=</span> <span class="n">row_dict</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">overall_dict</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="PlagDetect.tiling.score_update" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">score_update</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">score_dict</span><span class="p">,</span> <span class="n">filler</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Updates score dictionary prior to left_overlap functions.</p>
+
+      <details class="quote">
+        <summary>Source code in <code>PlagDetect\tiling.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">score_update</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">score_dict</span><span class="p">,</span> <span class="n">filler</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Updates score dictionary prior to left_overlap functions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vals</span><span class="p">)):</span>
+        <span class="n">score_dict</span><span class="p">[</span><span class="n">vals</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">scores</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">score_dict</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="PlagDetect.tiling.tile_run" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">tile_run</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">orig_shape</span><span class="p">,</span> <span class="n">img_side</span><span class="p">,</span> <span class="n">over_n</span><span class="p">,</span> <span class="n">score_thresh</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Main wrapper function to start the tile stitching process for the overall image from individual tiles post-inference.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>path</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>path with all the data in it - should be same as that used previously for inference.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>grid</code></td>
+          <td>
+                <code>int, int</code>
+          </td>
+          <td><p>(n,m) values from function that sliced images</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>orig_shape</code></td>
+          <td>
+                <code>int, int</code>
+          </td>
+          <td><p>Original shape of the image inference was performed on.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>img_side</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td><p>Size of square tile image used - length of side.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>over_n</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td><p>Overlap between tiles in pixels</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>tiled_img</code></td>          <td>
+                <code>ndarray</code>
+          </td>
+          <td><p>Final tiled image showing all the labels.</p></td>
+        </tr>
+        <tr>
+<td><code>final_scores</code></td>          <td>
+                <code>dict</code>
+          </td>
+          <td><p>Final dictionary of all the detection scores.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>PlagDetect\tiling.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">tile_run</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="n">grid</span><span class="p">,</span> <span class="n">orig_shape</span><span class="p">,</span> <span class="n">img_side</span><span class="p">,</span> <span class="n">over_n</span><span class="p">,</span> <span class="n">score_thresh</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Main wrapper function to start the tile stitching process for the overall image from individual tiles post-inference.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        path (str): path with all the data in it - should be same as that used previously for inference.</span>
+<span class="sd">        grid ((int, int)): (n,m) values from function that sliced images</span>
+<span class="sd">        orig_shape ((int, int)): Original shape of the image inference was performed on.</span>
+<span class="sd">        img_side (int): Size of square tile image used - length of side.</span>
+<span class="sd">        over_n (int): Overlap between tiles in pixels</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tiled_img (ndarray): Final tiled image showing all the labels.</span>
+<span class="sd">        final_scores (dict): Final dictionary of all the detection scores.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tiled_img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">orig_shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">row_len</span> <span class="o">=</span> <span class="n">orig_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="c1">#scores[0] is for label == 1 for future reference</span>
+    <span class="n">overall_scores</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">tiled</span><span class="p">,</span> <span class="n">scores</span> <span class="o">=</span> <span class="n">load_imgs</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">img_side</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">score_thresh</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+
+        <span class="n">tiled_row</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">img_side</span><span class="p">,</span> <span class="n">orig_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="n">row_scores</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+
+            <span class="n">current_tile_end</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">img_side</span> <span class="o">-</span> <span class="n">over_n</span><span class="p">)</span> <span class="o">+</span> <span class="n">over_n</span>
+            <span class="k">if</span> <span class="n">current_tile_end</span> <span class="o">&gt;</span> <span class="n">orig_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">excess</span> <span class="o">=</span> <span class="n">current_tile_end</span> <span class="o">-</span> <span class="n">orig_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">excess</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="c1">#print(i)</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">i</span><span class="c1">#horizontal        </span>
+
+            <span class="c1">#set top left corner at which they overlap</span>
+            <span class="n">corner_x</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="n">img_side</span><span class="o">-</span><span class="n">over_n</span><span class="p">)</span> <span class="o">-</span> <span class="n">excess</span>
+
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">tiled_row</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">img_side</span><span class="p">,</span> <span class="n">corner_x</span><span class="p">:</span><span class="n">corner_x</span> <span class="o">+</span> <span class="n">img_side</span><span class="p">]</span> <span class="o">+=</span> <span class="n">tiled</span><span class="p">[</span><span class="n">j</span><span class="o">*</span><span class="n">grid</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+                <span class="n">row_scores</span> <span class="o">=</span> <span class="n">score_update</span><span class="p">(</span><span class="n">scores</span><span class="p">[</span><span class="n">j</span><span class="o">*</span><span class="n">grid</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">tiled</span><span class="p">[</span><span class="n">j</span><span class="o">*</span><span class="n">grid</span><span class="p">[</span><span class="mi">1</span><span class="p">]])[</span><span class="mi">1</span><span class="p">:],</span><span class="n">row_scores</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1">#make sure no labels are the same across the two images</span>
+                <span class="n">filler_label</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">tiled_row</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">new_img</span> <span class="o">=</span> <span class="n">tiled</span><span class="p">[(</span><span class="n">grid</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">j</span><span class="p">)</span><span class="o">+</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">filler_label</span>
+                <span class="n">new_img</span><span class="p">[</span><span class="n">new_img</span> <span class="o">==</span> <span class="n">filler_label</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">row_scores</span> <span class="o">=</span> <span class="n">score_update</span><span class="p">(</span><span class="n">scores</span><span class="p">[(</span><span class="n">grid</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">j</span><span class="p">)</span><span class="o">+</span><span class="n">i</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">new_img</span><span class="p">)[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">row_scores</span><span class="p">,</span> <span class="n">filler</span><span class="o">=</span><span class="n">filler_label</span><span class="p">)</span>
+
+                <span class="n">tiled_row</span><span class="p">,</span> <span class="n">n_img</span> <span class="o">=</span> <span class="n">left_overlap</span><span class="p">(</span><span class="n">tiled_row</span><span class="p">,</span> <span class="n">new_img</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">corner_x</span><span class="p">,</span> <span class="n">over_n</span><span class="o">=</span><span class="n">over_n</span> <span class="o">+</span> <span class="n">excess</span> <span class="p">,</span><span class="n">img_side</span><span class="o">=</span><span class="n">img_side</span><span class="p">)</span>
+                <span class="c1">#update score dictionary</span>
+                <span class="n">row_scores</span> <span class="o">=</span> <span class="n">post_tile_score_update</span><span class="p">(</span><span class="n">new_img</span><span class="p">,</span> <span class="n">n_img</span><span class="p">,</span> <span class="n">row_scores</span><span class="p">)</span>
+
+
+        <span class="n">current_row_end</span> <span class="o">=</span> <span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">img_side</span> <span class="o">-</span> <span class="n">over_n</span><span class="p">)</span> <span class="o">+</span> <span class="n">over_n</span>
+        <span class="k">if</span> <span class="n">current_row_end</span> <span class="o">&gt;</span> <span class="n">orig_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="n">row_excess</span> <span class="o">=</span> <span class="n">current_row_end</span> <span class="o">-</span> <span class="n">orig_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">row_excess</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="n">y</span> <span class="o">=</span> <span class="n">j</span><span class="c1">#vertical</span>
+        <span class="n">corner_y</span> <span class="o">=</span> <span class="n">y</span><span class="o">*</span><span class="p">(</span><span class="n">img_side</span> <span class="o">-</span> <span class="n">over_n</span><span class="p">)</span> <span class="o">-</span> <span class="n">row_excess</span>
+
+        <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">tiled_img</span><span class="p">[</span><span class="n">corner_y</span><span class="p">:</span><span class="n">corner_y</span><span class="o">+</span><span class="n">img_side</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="n">row_len</span><span class="p">]</span> <span class="o">+=</span> <span class="n">tiled_row</span>
+            <span class="c1">#just copy the existing dictionary</span>
+            <span class="n">overall_scores</span> <span class="o">=</span> <span class="n">row_scores</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">row_filler_label</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">tiled_img</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">tiled_row</span> <span class="o">=</span> <span class="n">tiled_row</span> <span class="o">+</span> <span class="n">row_filler_label</span>
+            <span class="n">tiled_row</span><span class="p">[</span><span class="n">tiled_row</span> <span class="o">==</span> <span class="n">row_filler_label</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="c1">#add row score in to overall dict</span>
+            <span class="n">overall_scores</span> <span class="o">=</span> <span class="n">row_score_update</span><span class="p">(</span><span class="n">row_scores</span><span class="p">,</span> <span class="n">overall_scores</span><span class="p">,</span> <span class="n">row_filler_label</span><span class="p">)</span>
+            <span class="c1">#do tiling</span>
+            <span class="n">tiled_img</span><span class="p">,</span> <span class="n">n_img</span> <span class="o">=</span> <span class="n">top_overlap_row</span><span class="p">(</span><span class="n">tiled_img</span><span class="p">,</span> <span class="n">tiled_row</span><span class="p">,</span> <span class="n">corner_y</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">over_n</span><span class="o">=</span><span class="n">over_n</span><span class="o">+</span><span class="n">row_excess</span> <span class="p">,</span><span class="n">img_side</span> <span class="o">=</span> <span class="n">img_side</span><span class="p">,</span> <span class="n">row_len</span><span class="o">=</span><span class="n">row_len</span><span class="p">)</span>
+            <span class="c1">#update score dictionary</span>
+            <span class="n">overall_scores</span> <span class="o">=</span> <span class="n">post_tile_score_update</span><span class="p">(</span><span class="n">tiled_row</span><span class="p">,</span> <span class="n">n_img</span><span class="p">,</span> <span class="n">overall_scores</span><span class="p">)</span>
+
+    <span class="c1">#optimizing label assignment</span>
+    <span class="n">n_unique</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">tiled_img</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">n_unique</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">overall_scores</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+    <span class="n">final_scores</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_unique</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+        <span class="n">tiled_img</span><span class="p">[</span><span class="n">tiled_img</span> <span class="o">==</span> <span class="n">n_unique</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">final_scores</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">overall_scores</span><span class="p">[</span><span class="n">n_unique</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+
+    <span class="k">return</span> <span class="n">tiled_img</span><span class="p">,</span> <span class="n">final_scores</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="PlagDetect.tiling.top_overlap" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">top_overlap</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">corner_y</span><span class="p">,</span> <span class="n">corner_x</span><span class="p">,</span> <span class="n">over_n</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">img_side</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">row_len</span><span class="o">=</span><span class="mi">9600</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Wrapper for stitching function when building columns (may be deprecated)</p>
+
+      <details class="quote">
+        <summary>Source code in <code>PlagDetect\tiling.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">top_overlap</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">corner_y</span><span class="p">,</span> <span class="n">corner_x</span><span class="p">,</span> <span class="n">over_n</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">img_side</span> <span class="o">=</span> <span class="mi">2000</span><span class="p">,</span> <span class="n">row_len</span> <span class="o">=</span> <span class="mi">9600</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Wrapper for stitching function when building columns (may be deprecated)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">o1</span> <span class="o">=</span> <span class="n">i1</span><span class="p">[</span><span class="n">corner_y</span><span class="p">:</span><span class="n">corner_y</span><span class="o">+</span><span class="n">over_n</span><span class="p">,</span> <span class="n">corner_x</span><span class="p">:</span><span class="n">corner_x</span><span class="o">+</span><span class="n">img_side</span><span class="p">]</span> <span class="c1">#tile image</span>
+    <span class="n">o2</span> <span class="o">=</span> <span class="n">i2</span><span class="p">[:</span><span class="n">over_n</span><span class="p">,:]</span>
+
+    <span class="n">mask1</span> <span class="o">=</span> <span class="n">o1</span> <span class="o">!=</span> <span class="mi">0</span>
+    <span class="n">mask2</span> <span class="o">=</span> <span class="n">o2</span> <span class="o">!=</span> <span class="mi">0</span>
+    <span class="n">overlapped</span> <span class="o">=</span> <span class="n">mask1</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;int&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">mask2</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;int&quot;</span><span class="p">)</span>
+
+    <span class="n">i1</span><span class="p">,</span> <span class="n">i2</span> <span class="o">=</span> <span class="n">replace_vals</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span><span class="n">i2</span><span class="p">,</span><span class="n">overlapped</span><span class="p">,</span> <span class="n">corner_x</span><span class="p">,</span> <span class="n">corner_y</span><span class="p">)</span>
+
+    <span class="n">overlapped</span><span class="p">[</span><span class="n">overlapped</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">i1</span><span class="p">[</span><span class="n">corner_y</span><span class="p">:</span><span class="n">corner_y</span> <span class="o">+</span> <span class="n">img_side</span><span class="p">,</span> <span class="n">corner_x</span><span class="p">:</span><span class="n">corner_x</span><span class="o">+</span><span class="n">img_side</span><span class="p">]</span> <span class="o">+=</span> <span class="n">i2</span>
+    <span class="n">i1</span><span class="p">[</span><span class="n">corner_y</span><span class="p">:</span><span class="n">corner_y</span> <span class="o">+</span> <span class="n">over_n</span><span class="p">,</span> <span class="n">corner_x</span><span class="p">:</span><span class="n">corner_x</span><span class="o">+</span><span class="n">img_side</span><span class="p">]</span> <span class="o">=</span> <span class="n">i1</span><span class="p">[</span><span class="n">corner_y</span><span class="p">:</span><span class="n">corner_y</span> <span class="o">+</span> <span class="n">over_n</span><span class="p">,</span> <span class="n">corner_x</span><span class="p">:</span><span class="n">corner_x</span><span class="o">+</span><span class="n">img_side</span><span class="p">]</span><span class="o">/</span><span class="n">overlapped</span>
+
+    <span class="k">return</span> <span class="n">i1</span><span class="p">,</span> <span class="n">i2</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="PlagDetect.tiling.top_overlap_row" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">top_overlap_row</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">corner_y</span><span class="p">,</span> <span class="n">corner_x</span><span class="p">,</span> <span class="n">over_n</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">img_side</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">row_len</span><span class="o">=</span><span class="mi">9600</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Wrapper for stitching function when building full image from rows.</p>
+
+      <details class="quote">
+        <summary>Source code in <code>PlagDetect\tiling.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">top_overlap_row</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">corner_y</span><span class="p">,</span> <span class="n">corner_x</span><span class="p">,</span> <span class="n">over_n</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">img_side</span> <span class="o">=</span> <span class="mi">2000</span><span class="p">,</span> <span class="n">row_len</span> <span class="o">=</span> <span class="mi">9600</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Wrapper for stitching function when building full image from rows.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">o1</span> <span class="o">=</span> <span class="n">i1</span><span class="p">[</span><span class="n">corner_y</span><span class="p">:</span><span class="n">corner_y</span><span class="o">+</span><span class="n">over_n</span><span class="p">,</span> <span class="n">corner_x</span><span class="p">:</span><span class="n">corner_x</span><span class="o">+</span><span class="n">row_len</span><span class="p">]</span> <span class="c1">#tile image</span>
+    <span class="n">o2</span> <span class="o">=</span> <span class="n">i2</span><span class="p">[:</span><span class="n">over_n</span><span class="p">,:]</span>
+
+    <span class="n">mask1</span> <span class="o">=</span> <span class="n">o1</span> <span class="o">!=</span> <span class="mi">0</span>
+    <span class="n">mask2</span> <span class="o">=</span> <span class="n">o2</span> <span class="o">!=</span> <span class="mi">0</span>
+    <span class="n">overlapped</span> <span class="o">=</span> <span class="n">mask1</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;int&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">mask2</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;int&quot;</span><span class="p">)</span>
+    <span class="n">i1</span><span class="p">,</span> <span class="n">i2</span> <span class="o">=</span> <span class="n">replace_vals</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span><span class="n">i2</span><span class="p">,</span><span class="n">overlapped</span><span class="p">,</span> <span class="n">corner_x</span><span class="p">,</span> <span class="n">corner_y</span><span class="p">)</span>
+
+    <span class="n">overlapped</span><span class="p">[</span><span class="n">overlapped</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">i1</span><span class="p">[</span><span class="n">corner_y</span><span class="p">:</span><span class="n">corner_y</span> <span class="o">+</span> <span class="n">img_side</span><span class="p">,</span> <span class="n">corner_x</span><span class="p">:</span><span class="n">corner_x</span><span class="o">+</span><span class="n">row_len</span><span class="p">]</span> <span class="o">+=</span> <span class="n">i2</span>
+    <span class="n">i1</span><span class="p">[</span><span class="n">corner_y</span><span class="p">:</span><span class="n">corner_y</span> <span class="o">+</span> <span class="n">over_n</span><span class="p">,</span> <span class="n">corner_x</span><span class="p">:</span><span class="n">corner_x</span><span class="o">+</span><span class="n">row_len</span><span class="p">]</span> <span class="o">=</span> <span class="n">i1</span><span class="p">[</span><span class="n">corner_y</span><span class="p">:</span><span class="n">corner_y</span> <span class="o">+</span> <span class="n">over_n</span><span class="p">,</span> <span class="n">corner_x</span><span class="p">:</span><span class="n">corner_x</span><span class="o">+</span><span class="n">row_len</span><span class="p">]</span><span class="o">/</span><span class="n">overlapped</span>
+
+    <span class="k">return</span> <span class="n">i1</span><span class="p">,</span> <span class="n">i2</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../NMS/" class="btn btn-neutral float-left" title="NMS"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../slicing/" class="btn btn-neutral float-right" title="Slicing">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>Copyright (c) 2023 Norbert Toth</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../NMS/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../slicing/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

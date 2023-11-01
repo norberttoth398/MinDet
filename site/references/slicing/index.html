@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Slicing - PlagDetect</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Slicing";
+        var mkdocs_page_input_path = "references\\slicing.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> PlagDetect
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">PlagDetect</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">About PlagDetect</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../cite/">How to cite</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../contribute/">How to contribute</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../background/">Background</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Training/">Training</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Inference/">Inference</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../textural_work/">Textural Work</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Examples</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../examples/Skuggafjoll_analysis/">Large textural dataset analysis - Skuggafjoll</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../examples/Sill_calibration/">Crystallisation time and Plagioclase shape calibration in sills</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">References</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../detector/">Detector</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../NMS/">NMS</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tiling/">Tiling</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Slicing</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#PlagDetect.slicing">PlagDetect.slicing</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#PlagDetect.slicing.img_slice">img_slice()</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../thresholding/">Thresholding</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../run/">Run</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Process</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../measure/">Measure</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../texture/">Texture</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../shape_calc/">ShapeCalc</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../mcmc/">MCMC Prediction</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../licence/">Licence</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">PlagDetect</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>References &raquo;</li>
+      <li>Slicing</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="slicing">Slicing</h1>
+
+
+<div class="doc doc-object doc-module">
+
+
+<a id="PlagDetect.slicing"></a>
+  <div class="doc doc-contents first">
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="PlagDetect.slicing.img_slice" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">img_slice</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="nb">dir</span><span class="p">,</span> <span class="n">img_size</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">overlap</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">slicing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Function used to slice the main panorama image into the desired tiles. 
+   Images are saved to be used for inference later.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>img</code></td>
+          <td>
+                <code>ndarray</code>
+          </td>
+          <td><p>Panorama image</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>dir</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>Directory to save files in.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>img_size</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td><p>Size of tile images in pixels - square tiles assumed. Defaults to 2000.</p></td>
+          <td>
+                <code>2000</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>overlap</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td><p>Overlap between tiles. Defaults to 100.</p></td>
+          <td>
+                <code>100</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>slicing</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>Set False if you don't want to slice image, but just figure out th (n,m) values. Defaults to True.</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>n, m: grid sizes for tiling post-inference.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>PlagDetect\slicing.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">img_slice</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="nb">dir</span><span class="p">,</span> <span class="n">img_size</span> <span class="o">=</span> <span class="mi">2000</span><span class="p">,</span> <span class="n">overlap</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">slicing</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function used to slice the main panorama image into the desired tiles. </span>
+<span class="sd">       Images are saved to be used for inference later.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        img (ndarray): Panorama image</span>
+<span class="sd">        dir (str): Directory to save files in.</span>
+<span class="sd">        img_size (int, optional): Size of tile images in pixels - square tiles assumed. Defaults to 2000.</span>
+<span class="sd">        overlap (int, optional): Overlap between tiles. Defaults to 100.</span>
+<span class="sd">        slicing (bool, optional): Set False if you don&#39;t want to slice image, but just figure out th (n,m) values. Defaults to True.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        n, m: grid sizes for tiling post-inference.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">overlap</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">img_size</span> <span class="o">-</span> <span class="n">overlap</span><span class="p">))</span><span class="o">+</span><span class="mi">1</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">overlap</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">img_size</span> <span class="o">-</span> <span class="n">overlap</span><span class="p">))</span><span class="o">+</span><span class="mi">1</span>
+
+    <span class="n">step_size</span> <span class="o">=</span> <span class="n">img_size</span> <span class="o">-</span> <span class="n">overlap</span>
+    <span class="k">if</span> <span class="n">slicing</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+                <span class="n">x_start</span> <span class="o">=</span> <span class="n">i</span><span class="o">*</span><span class="n">step_size</span>
+                <span class="n">y_start</span> <span class="o">=</span> <span class="n">j</span><span class="o">*</span><span class="n">step_size</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">x_start</span><span class="o">+</span><span class="n">img_size</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                    <span class="n">x_start</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">img_size</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">y_start</span><span class="o">+</span><span class="n">img_size</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="n">y_start</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">img_size</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">pass</span>
+
+                <span class="n">temp_slice</span> <span class="o">=</span> <span class="n">img</span><span class="p">[</span><span class="n">x_start</span><span class="p">:</span><span class="n">x_start</span><span class="o">+</span><span class="n">img_size</span><span class="p">,</span>
+                                <span class="n">y_start</span><span class="p">:</span><span class="n">y_start</span> <span class="o">+</span><span class="n">img_size</span><span class="p">,</span>
+                                <span class="p">:]</span>
+                <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="nb">dir</span> <span class="o">+</span> <span class="s2">&quot;/imgs&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+                    <span class="k">pass</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="nb">dir</span> <span class="o">+</span> <span class="s2">&quot;/imgs&quot;</span><span class="p">)</span>
+                <span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span> <span class="nb">dir</span> <span class="o">+</span> <span class="s2">&quot;/imgs/image_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.jpg&quot;</span><span class="p">,</span> <span class="n">temp_slice</span><span class="p">,</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">IMWRITE_JPEG_QUALITY</span><span class="p">),</span> <span class="mi">100</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">return</span> <span class="n">n</span><span class="p">,</span><span class="n">m</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../tiling/" class="btn btn-neutral float-left" title="Tiling"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../thresholding/" class="btn btn-neutral float-right" title="Thresholding">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>Copyright (c) 2023 Norbert Toth</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../tiling/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../thresholding/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

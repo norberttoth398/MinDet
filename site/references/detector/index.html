@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Detector - PlagDetect</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Detector";
+        var mkdocs_page_input_path = "references\\detector.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> PlagDetect
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">PlagDetect</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">About PlagDetect</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../cite/">How to cite</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../contribute/">How to contribute</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../background/">Background</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Training/">Training</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Inference/">Inference</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../textural_work/">Textural Work</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Examples</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../examples/Skuggafjoll_analysis/">Large textural dataset analysis - Skuggafjoll</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../examples/Sill_calibration/">Crystallisation time and Plagioclase shape calibration in sills</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">References</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Detector</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#PlagDetect.detector">PlagDetect.detector</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#PlagDetect.detector.detector">detector()</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../NMS/">NMS</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tiling/">Tiling</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../slicing/">Slicing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../thresholding/">Thresholding</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../run/">Run</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Process</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../measure/">Measure</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../texture/">Texture</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../shape_calc/">ShapeCalc</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../mcmc/">MCMC Prediction</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../licence/">Licence</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">PlagDetect</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>References &raquo;</li>
+      <li>Detector</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="detector">Detector</h1>
+
+
+<div class="doc doc-object doc-module">
+
+
+<a id="PlagDetect.detector"></a>
+  <div class="doc doc-contents first">
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="PlagDetect.detector.detector" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">detector</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">checkpoint</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s1">&#39;cpu&#39;</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Create detector object - a realisation of the model supplied to the function via the relevant config and checkpoint files.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>file</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>Location of config file.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>checkpoint</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>Location of checkpoint file.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>device</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>Device to use for inference - CPU or GPU. Defaults to "cpu".</p></td>
+          <td>
+                <code>&#39;cpu&#39;</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>model</code></td>          <td>
+          </td>
+          <td><p>MMDetect model object generated.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>PlagDetect\detector.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">detector</span><span class="p">(</span><span class="n">file</span> <span class="p">,</span> <span class="n">checkpoint</span><span class="p">,</span> <span class="n">device</span> <span class="o">=</span> <span class="s2">&quot;cpu&quot;</span><span class="p">):</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create detector object - a realisation of the model supplied to the function via the relevant config and checkpoint files.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        file (str): Location of config file.</span>
+<span class="sd">        checkpoint (str): Location of checkpoint file.</span>
+<span class="sd">        device (str, optional): Device to use for inference - CPU or GPU. Defaults to &quot;cpu&quot;.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        model: MMDetect model object generated.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Specify the path to model config and checkpoint file</span>
+    <span class="n">config_file</span> <span class="o">=</span> <span class="n">file</span>
+    <span class="n">checkpoint_file</span> <span class="o">=</span> <span class="n">checkpoint</span>
+
+    <span class="c1"># build the model from a config file and a checkpoint file</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">init_detector</span><span class="p">(</span><span class="n">config_file</span><span class="p">,</span> <span class="n">checkpoint_file</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="n">device</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">model</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../examples/Sill_calibration/" class="btn btn-neutral float-left" title="Crystallisation time and Plagioclase shape calibration in sills"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../NMS/" class="btn btn-neutral float-right" title="NMS">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>Copyright (c) 2023 Norbert Toth</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../../examples/Sill_calibration/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../NMS/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
