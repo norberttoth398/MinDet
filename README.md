@@ -1,7 +1,6 @@
 # MinDet
 
-[![Documentation Status](https://readthedocs.org/projects/plagdetect/badge/?version=latest)](https://plagdetect.readthedocs.io/en/latest/?badge=latest) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7851939.svg)](https://doi.org/10.5281/zenodo.7851939)
-
+[![Documentation Status](https://readthedocs.org/projects/mindet/badge/?version=latest)](https://mindet.readthedocs.io/en/latest/?badge=latest) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10061725.svg)](https://doi.org/10.5281/zenodo.10061725)
 
 
 
@@ -54,6 +53,12 @@ Install required libraries (non-cluster):
 Install using the following command: 
 
 	pip install git+https://git@github.com/norberttoth398/MinDet
+
+
+#### Supplementary Data
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10061710.svg)](https://doi.org/10.5281/zenodo.10061710)
+
 
 
 #### Cite
