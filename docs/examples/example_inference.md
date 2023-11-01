@@ -4,7 +4,7 @@
 
 Below is a python script used for batch inference of samples from Skuggafjoll on a distributed cluster computer. This script takes JPEG images of the given names from separate directories of each sample name. Config and checkpoint files are defined and passed to the function. We perform inference using CPU only - though if available GPU would be faster. Tile images are produced 1000px by 1000px with 250px overlap.
 
-	from PlagDetect import run
+	from MinDet import run
 	import numpy as np
 	import matplotlib.pyplot as plt
 	samples = ["HOR11_01A", "HOR11_01C", "HOR11_02A", "HOR11_02B", "HOR12_03A", "HOR12_03B", "SKU11_02B", "SKU11_03",
@@ -22,7 +22,7 @@ Below is a python script used for batch inference of samples from Skuggafjoll on
 
 Below is a similar script for just tiling to be performed on pre-existing results - this is not necessary unless detection score threshold or NMS threshold is to be changed. Note that tile images are assumed to be square and all results will be saved in the "tile_only" directory in this case.
 
-	from PlagDetect import run
+	from MinDet import run
         import numpy as np
         import matplotlib.pyplot as plt
         samples = ["HOR11_01A", "HOR11_01C", "HOR11_02A", "HOR11_02B", "HOR12_03A", "HOR12_03B", "SKU11_02B", "SKU11_03",
