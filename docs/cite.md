@@ -2,7 +2,7 @@
 
 Please cite software using the following:
 	
-	norberttoth398. (2023). norberttoth398/PlagDetect: First release - for peer review (v0.1.0). Zenodo. https://doi.org/10.5281/zenodo.7851939
+	norberttoth398. (2023). norberttoth398/MinDet: MinDet1 (1.0.0). Zenodo. https://doi.org/10.5281/zenodo.10061725
 
 Pre-print:
 
