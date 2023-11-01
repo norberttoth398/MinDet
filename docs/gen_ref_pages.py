@@ -4,7 +4,7 @@ from pathlib import Path
 
 import mkdocs_gen_files
 
-for path in sorted(Path("PlagDetect").rglob("*.py")):  # 
+for path in sorted(Path("MinDet").rglob("*.py")):  # 
 
 
     module_path = path.relative_to("").with_suffix("")  # 

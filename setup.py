@@ -12,16 +12,16 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="PlagDetect",
-    version="0.0.1",
+    name="MinDet",
+    version="1.0.0",
     author="norberttoth398",
     author_email="nt398@cam.ac.uk",
     description="Deep learning based Plagioclase detection software.",
     long_description=long_description,
-    url="https://github.com/norberttoth398/PlagDetect",
+    url="https://github.com/norberttoth398/MinDet",
     packages=setuptools.find_packages(),
     classifiers=[
-        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.7",
         "Operating System :: OS Independent",
     ],
     install_requires = install_requires,
