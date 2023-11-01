@@ -1,2 +1,2 @@
 # Slicing
-::: PlagDetect.slicing
+::: MinDet.slicing

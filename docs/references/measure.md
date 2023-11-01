@@ -1,2 +1,2 @@
 # Measure Functions
-::: PlagDetect.Process.measure_funcs
+::: MinDet.Process.measure_funcs

@@ -1,2 +1,2 @@
 # ShapeCalc
-::: PlagDetect.Process.shape_calc
+::: MinDet.Process.shape_calc

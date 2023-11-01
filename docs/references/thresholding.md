@@ -1,2 +1,2 @@
 # Thresholding
-::: PlagDetect.thresholding
+::: MinDet.thresholding

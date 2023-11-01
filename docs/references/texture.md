@@ -1,2 +1,2 @@
 # Texture
-::: PlagDetect.Process.texture
+::: MinDet.Process.texture

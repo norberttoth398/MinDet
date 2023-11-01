@@ -1,2 +1,2 @@
 # Run
-::: PlagDetect.run
+::: MinDet.run

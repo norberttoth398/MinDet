@@ -1,2 +1,2 @@
 # Tiling
-::: PlagDetect.tiling
+::: MinDet.tiling

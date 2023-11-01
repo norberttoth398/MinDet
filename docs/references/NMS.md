@@ -1,2 +1,2 @@
 # NMS
-::: PlagDetect.nms
+::: MinDet.nms

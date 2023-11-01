@@ -1,4 +1,4 @@
 # Detector
 
-::: PlagDetect.detector
+::: MinDet.detector
 
