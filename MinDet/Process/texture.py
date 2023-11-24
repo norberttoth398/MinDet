@@ -142,7 +142,7 @@ def AR_plot(aspect_ratio, size,auto_bins = True, bins = 10, geometric = False, m
     else:
         b = bins
 
-    aspect_ratio_binned, aspect_ratio_sigma, centres = gen_aspect_ratio_data(size, aspect_ratio, b)
+    aspect_ratio_binned, aspect_ratio_sigma, bin_centres = gen_aspect_ratio_data(size, aspect_ratio, b)
     if ax is not None:
         ax.scatter(bin_centres, aspect_ratio_binned)
         ax.errorbar(bin_centres, aspect_ratio_binned, yerr=aspect_ratio_sigma, fmt = 'o')
