@@ -153,7 +153,7 @@ def AR_plot(aspect_ratio, size,auto_bins = True, bins = 10, geometric = False, m
         ax.errorbar(bin_centres, aspect_ratio_binned, yerr=aspect_ratio_sigma, fmt = 'o')
         return fig, ax
 
-def CSD_plot(size,auto_bins = True, bins = 10, geometric = False, min_max = None, manual_lims = False, x_lims = None, y_lims = None, ax = None):
+def CSD_plot(size,auto_bins = True, bins = 10, geometric = False, roi_size = 1, min_max = None, manual_lims = False, x_lims = None, y_lims = None, ax = None):
     """_summary_
 
     Args:
