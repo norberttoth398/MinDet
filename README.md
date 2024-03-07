@@ -1,6 +1,7 @@
 # MinDet
 
-[![Documentation Status](https://readthedocs.org/projects/mindet/badge/?version=latest)](https://mindet.readthedocs.io/en/latest/?badge=latest) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10061725.svg)](https://doi.org/10.5281/zenodo.10061725)
+[![Documentation Status](https://readthedocs.org/projects/mindet/badge/?version=latest)](https://mindet.readthedocs.io/en/latest/?badge=latest) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10061725.svg)](https://doi.org/10.5281/zenodo.10061725) ![Static Badge](https://img.shields.io/badge/mindet-interactive-notebook?link=https%3A%2F%2Fwww.kaggle.com%2Fcode%2Fnorberttoth%2Fmindet-interactive-notebook)
+
 
 
 
