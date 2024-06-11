@@ -9,14 +9,14 @@ Repository for Deep Learning based petrography of igneous Plagioclase crystals b
 
 ## Install
 
-In order to install this private package you must be able to access it (which you can if you're reading this) and run have/create a python 3.8 environment for relevant package requirements (PyTorch can be a pain like that). 
+In order to install this private package you must be able to access it (which you can if you're reading this) and run have/create a python 3.7 environment for relevant package requirements (PyTorch can be a pain like that). 
 
 Ensure GCC is installed on your system.
 
 #### Step 1
 Create and activate environment:
 	
-	eg conda create -n MinDetEnv python=3.8 
+	eg conda create -n MinDetEnv python=3.7 
 	
 	eg conda activate MinDetEnv
 
