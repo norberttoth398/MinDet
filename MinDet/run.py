@@ -32,7 +32,7 @@ def pad_img(img, img_side):
 
     image = np.zeros((img.shape[0]+a1, img.shape[1] + a2, 3), dtype = "uint8")
 
-    image[:img.shape[0], img.shape[1]] += img
+    image[:img.shape[0], :img.shape[1]] += img
         
     return image
 
