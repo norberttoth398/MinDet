@@ -23,7 +23,7 @@ from .thresholding import threshold_labs, build_img
 
 def pad_img(img, img_side):
     a1 = img_side - img.shape[0]
-    a2 = img_side - img.shape[0]
+    a2 = img_side - img.shape[1]
 
     if a1 < 0:
         a1 = 0
@@ -31,12 +31,11 @@ def pad_img(img, img_side):
         a2 = 0
 
     image = np.zeros((img.shape[0]+a1, img.shape[1] + a2, 3), dtype = "uint8")
-
     image[:img.shape[0], :img.shape[1]] += img
         
     return image
 
-def __run__(img, path, config, checkpoint, device = "cpu", min_size_test = 1000, img_side = 2000, over_n = 100, nms_crit = 0.5, thresh = 0):
+def __run__(img, path, config, checkpoint, device = "cpu", min_size_test = 1000, img_side = 2000, over_n = 100, nms_crit = 0.5, thresh = 0, testing = False):
 
     """Run entire script with.
 
@@ -55,8 +54,9 @@ def __run__(img, path, config, checkpoint, device = "cpu", min_size_test = 1000,
         thresh = 0
     else:
         pass
-
-    model = detector(config, checkpoint, device)
+    
+    if not testing:
+        model = detector(config, checkpoint, device)
 
     image  = cv2.imread(path + "/" +  img)
 
@@ -75,7 +75,8 @@ def __run__(img, path, config, checkpoint, device = "cpu", min_size_test = 1000,
     for imageName in images:
         img_ = imageName
         name = imageName.split("/")[len(imageName.split("/"))-1]
-        result = inference_detector(model, img_)
+        if not testing:
+            result = inference_detector(model, img_)
         if os.path.exists(path + "/instance_res") == True:
             pass
         else:
