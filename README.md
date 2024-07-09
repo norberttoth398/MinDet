@@ -63,6 +63,6 @@ Install using the following command:
 
 
 #### Cite
-Publication for the above repository is formally in the preparation stage. This work is presented at the EGU 2023 conference however, until formal publication of a manuscript please cite:
+Please cite the following publication describing the present software:
 
-	norberttoth398. (2023). norberttoth398/MinDet:
+	Toth, N. and Maclennan, J. (2024) “MinDet1: A deep learning-enabled approach for plagioclase textural studies”, Volcanica, 7(1), pp. 135–151. doi: 10.30909/vol.07.01.135151.
