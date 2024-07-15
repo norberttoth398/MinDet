@@ -74,7 +74,10 @@ def __run__(img, path, config, checkpoint, device = "cpu", min_size_test = 1000,
 
     for imageName in images:
         img_ = imageName
-        name = imageName.split("/")[len(imageName.split("/"))-1]
+        if "imgs\\" in img_:
+            name = imageName.split("imgs\\")[1]
+        else:
+            name = imageName.split("/")[len(imageName.split("/"))-1]
         if not testing:
             result = inference_detector(model, img_)
         if os.path.exists(path + "/instance_res") == True:
