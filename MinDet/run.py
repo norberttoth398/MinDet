@@ -117,7 +117,7 @@ def __run__(img, path, config, checkpoint, device = "cpu", min_size_test = 1000,
     tiled_img, score_dict = tile_run(tile_run_path, grid, orig_shape, img_side, over_n, score_thresh = thresh)
 
     np.save(path + "/labels/res.npy", tiled_img)
-    np.savez(path + "/labels/full_res.npy", img = tiled_img, scores = score_dict)
+    np.savez(path + "/labels/full_res.npz", img = tiled_img, scores = score_dict)
 
     #combine real img and panoptic res:
     img  = plt.imread(path + "/" + img)
