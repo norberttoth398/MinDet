@@ -202,7 +202,7 @@ def CSD_plot(size,auto_bins = True, bins = 10, geometric = False, roi_size = 1, 
     else:
         fig, ax = plt.subplots(1,1,figsize = (8,8))
         ax.scatter(centres,np.log(counts_bwNorm/roi_size))
-        ax.set_xlabel(r"Area$^{0.5}$ ($\mu$m)")
+        ax.set_xlabel(r"Area$^{0.5}$")
         ax.set_ylabel("ln(N / bw)")
         return fig, ax
 
